@@ -17,9 +17,9 @@ LOG = mylogger.get_logger(__name__)
 
 def find_best_model():
     is_plot_enabled = True
-    shift_size = 5
+    shift_size = 12
     currency_pair_target = 'USDT_ETH'
-    currency_pairs = ['USDT_BTC']
+    currency_pairs = ['USDT_BTC', 'USDT_LTC', 'USDT_ETC']
     from_seconds = 1483838000
     #from_seconds = 1453838000
     to_seconds = 1494536581

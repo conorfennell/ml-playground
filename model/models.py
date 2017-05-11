@@ -174,27 +174,27 @@ def get_mlp_models():
 
 def get_best_models_so_far():
     models = []
-    models.append(('svr_degree:3|C:149|cache_size:200|coef0:0.0|epsilon:0.55',
-                   svm.SVR(degree=3, C=149, cache_size=200, coef0=0.0, epsilon=0.55, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0017, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0017000000000000001', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0017, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0002', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0002, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0004', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0004, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.00030000000000000003', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0003, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0001', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0001, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0008', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0008, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0009000000000000001', svm.SVR(C=6.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0009, verbose=False)))
-    models.append(('svr_6.0_0.6_rbf_0.0009000000000000001', svm.SVR(C=136.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.6, gamma='auto', kernel='rbf', max_iter=-1, shrinking=True, tol=0.0009, verbose=False)))
-
-    models.append(('mlp_hidden_layer_sizes:(60, 10)|activation:logistic|solver:lbfgs|alpha:0.0001|learning_rate:constant|max_iter:200|tol:0.0001', 
-                   MLPRegressor(hidden_layer_sizes=(60,10), activation='logistic', solver='lbfgs', alpha=0.0001, learning_rate='constant',  max_iter=200, tol=0.0001)))           
-    models.append(('mlp (3_ 70) logistic lbfgs adaptive 0.0002_200_2e-05', MLPRegressor(hidden_layer_sizes=(3,70), activation='logistic', solver='lbfgs', alpha=0.0002, learning_rate='adaptive',  max_iter=200, tol=2e-05)))
-    models.append(('mlp (3_ 26) logistic lbfgs invscaling 0.0004_200_3.0000000000000004e-05', MLPRegressor(hidden_layer_sizes=(3,26), activation='logistic', solver='lbfgs', alpha=0.0004,  learning_rate='adaptive',  max_iter=200, tol=3.0000000000000004e-05)))
-    models.append(('mlp (3_ 70) logistic lbfgs adaptive 0.0004_220_6e-05', MLPRegressor(hidden_layer_sizes=(3,70), activation='logistic', solver='lbfgs', alpha=0.0004,  learning_rate='adaptive',  max_iter=220, tol=6e-05)))
-    models.append(('mlp (3_ 70) logistic lbfgs adaptive 0.0004_200_9e-05', MLPRegressor(hidden_layer_sizes=(3,70), activation='logistic', solver='lbfgs', alpha=0.0004,  learning_rate='adaptive',  max_iter=200, tol=9e-05)))
-    models.append(('mlp (3_ 76) logistic lbfgs invscaling 0.00030000000000000003_240_7.000000000000001e-05', MLPRegressor(hidden_layer_sizes=(3,76), activation='logistic', solver='lbfgs', alpha=0.0003,  learning_rate='adaptive',  max_iter=240, tol=7.000000000000001e-05)))
-    models.append(('mlp (8_ 86) logistic lbfgs adaptive 0.0002_220_5e-05', MLPRegressor(hidden_layer_sizes=(8,86), activation='logistic', solver='lbfgs', alpha=0.0002,  learning_rate='adaptive',  max_iter=220, tol=5e-05)))
-    models.append(('mlp (8_ 86) logistic lbfgs adaptive 0.0001_280_9e-05', MLPRegressor(hidden_layer_sizes=(8,86), activation='logistic', solver='lbfgs', alpha=0.0001,  learning_rate='adaptive',  max_iter=280, tol=9e-05)))
-
+    
+    models.append((f'Ridge_alpha:5.918|fit_intercept:True|normalize:False|copy_X:True|max_iter:None|tol:0.001|solver:auto|random_state:None',
+                Ridge(alpha=5.918, 
+                        fit_intercept=True, 
+                        normalize=False, 
+                        copy_X=True, 
+                        max_iter=None, 
+                        tol=0.001, 
+                        solver='auto', 
+                        random_state=None)))
+                        
+    models.append(('LassoLars',
+                   LassoLars(alpha=0.1,
+                             copy_X=True,
+                             fit_intercept=True,
+                             fit_path=True,
+                             max_iter=500,
+                             normalize=True,
+                             positive=False,
+                             precompute='auto',
+                             verbose=False)))
     return models
 
 def get_all():
