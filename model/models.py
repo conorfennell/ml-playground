@@ -195,6 +195,34 @@ def get_best_models_so_far():
                              positive=False,
                              precompute='auto',
                              verbose=False)))
+    models.append(('BayesianRidge',
+                   BayesianRidge(alpha_1=1e-06,
+                                 alpha_2=1e-06,
+                                 compute_score=False,
+                                 copy_X=True,
+                                 fit_intercept=True,
+                                 lambda_1=1e-06,
+                                 lambda_2=1e-06,
+                                 n_iter=300,
+                                 normalize=False,
+                                 tol=0.001,
+                                 verbose=False)))
+    models.append(('SGDRegressor',
+                   SGDRegressor(alpha=0.0001,
+                                average=False,
+                                epsilon=0.1,
+                                eta0=0.01,
+                                fit_intercept=True,
+                                l1_ratio=0.15,
+                                learning_rate='invscaling',
+                                loss='squared_loss',
+                                n_iter=5,
+                                penalty='l2',
+                                power_t=0.25,
+                                random_state=None,
+                                shuffle=True,
+                                verbose=0,
+                                warm_start=False)))
     return models
 
 def get_all():

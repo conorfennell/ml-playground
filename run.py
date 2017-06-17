@@ -3,6 +3,9 @@ This script runs the forecast semo model
 """
 from __future__ import absolute_import
 from utils import utils
-import polenix_models
+import polo_models
+from service import kraken
 
-polenix_models.find_best_model()
+polo_models.best_models_predict()
+
+#polo_models.find_best_model()

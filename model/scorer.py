@@ -12,22 +12,25 @@ from model import models as mods
 
 LOG = mylogger.get_logger(__name__)
 
-def score_model(model_details, x_features, y_features, is_plot_enabled):
+def score_model(model_details, x, y, is_plot_enabled):
     """ splits trainging data, scales data, trains models and returns a score """
     model_name, model = model_details
 
     # Split training and test data
-    len_train = int(0.8 * len(x_features))
-    x_train = x_features[0:len_train]
-    y_train = y_features[0:len_train]
-    x_test = x_features[len_train:]
-    y_test = y_features[len_train:]
+    len_train = int(0.8 * len(x))
+    x_train = x[0:len_train]
+    y_train = y[0:len_train]
+    x_test = x[len_train:]
+    y_test = y[len_train:]
+    
     # Scale training data
-    scaler = StandardScaler().fit(x_features)
+    scaler = StandardScaler().fit(x)
     train_scaled_x = scaler.transform(x_train)
     test_scaled_x = scaler.transform(x_test)
+    
     # train the model
     model.fit(train_scaled_x, y_train)
+    
     # score the model
     predicted_y = model.predict(test_scaled_x)
     score = model.score(test_scaled_x, y_test)
@@ -39,14 +42,14 @@ def score_model(model_details, x_features, y_features, is_plot_enabled):
     return score
 
 
-def score_models(models, x_features, y_features, is_plot_enabled):
+def score_models(models, x, y, is_plot_enabled):
     """runs all the models with x and y features, returning all the models with their score """
     scored_models = []
     max_score = 0
     max_model_name = ''
 
     for model in models:
-        score = score_model(model, x_features, y_features, is_plot_enabled)
+        score = score_model(model, x, y, is_plot_enabled)
         scored_models.append((model[0], score))
         if score > max_score:
             max_score = score
@@ -86,6 +89,6 @@ def show_plot_future(y_train, y_test, y_predicted, future_predicted_y):
         index = index + 1
     plt.plot(train_range, y_train, color='green')
     plt.plot(test_range, y_test, color='green')
-    plt.plot(test_range, y_predicted, color = 'red')
-    plt.plot(future_range, future_predicted_y, color = 'blue')
+    plt.plot(test_range, y_predicted, color = 'blue')
+    plt.plot(future_range, future_predicted_y, color = 'red')
     plt.show()

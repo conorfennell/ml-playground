@@ -3,27 +3,24 @@
 from __future__ import absolute_import
 
 from utils import mylogger
-from service import polenix
+from service import polo
+from utils import utils
 
 LOG = mylogger.get_logger(__name__)
 
-def load_data(currency_pair_target, currency_pairs, shift_size, from_seconds, to_seconds):
-    # featureize currency_pairs
-    x = list(map(lambda currency_pair: polenix.retrieve(currency_pair, from_seconds, to_seconds), currency_pairs))
-    x_features = select_features_x(x)
+def load_data(target_currency, input_currencies, shift_size, from_seconds, to_seconds = utils.END_OF_TIME):
+    full_data = list(map(lambda currency: polo.retrieve(currency, from_seconds, to_seconds), input_currencies))
+    
+    # featurise currency_pairs
+    x = select_x(full_data)
 
-    # featureise currency_pair_target
-    y = polenix.retrieve(currency_pair_target, from_seconds, to_seconds)
-    y_features = select_features_y(y)
+    # get the output (which is the weighted average of the target currency)
+    y = polo.retrieve(target_currency, from_seconds, to_seconds)
+    y = select_y(y)
 
-    # shift
-    x_features = x_features[shift_size:]
-    y_features = y_features[:-shift_size]
-   
-    return (x_features, y_features)
+    return (x, y)
 
-
-def select_features_x(currency_pairs):
+def select_x(currency_pairs):
     """format input data to a 1d array"""
     x_features = list(map(lambda candle: [], currency_pairs[0]))
 
@@ -38,6 +35,6 @@ def select_features_x(currency_pairs):
     return x_features
 
 
-def select_features_y(candles):
+def select_y(candles):
     """format input data to one value"""
     return [candle['weightedAverage'] for candle in candles]
